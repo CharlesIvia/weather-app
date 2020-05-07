@@ -44,9 +44,13 @@ window.addEventListener('load', ()=> {
                 //Set icons
 
                 let iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-                console.log(iconUrl);
+                
+                let img = document.createElement('img');
+                img.src = iconUrl;
+                let src = document.getElementById('weather-icons');
+                src.appendChild(img);
 
-                // setIcons(icon, document.querySelector(".icon"));
+                console.log(img);
 
                 //Change temperature to Farenheit/Celcious
                 
@@ -65,10 +69,4 @@ window.addEventListener('load', ()=> {
 
     } else alert('This app requires your location to work!');
 
-    // function setIcons(icon, iconID) {
-    //     const skycons = new Skycons({color:"white"});
-    //     const currentIcon = icon;
-    //     skycons.play();
-    //     return skycons.set(iconID, Skycons[currentIcon]);
-    // }
 });
