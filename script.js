@@ -1,10 +1,11 @@
+let temperatureDescription = document.querySelector('.temperature-description');
+let temperatureDegree = document.querySelector('.temperature-degree');
+let locationTimezone = document.querySelector('.location-timezone');
+let temperatureSection = document.querySelector('.temperature');
+const temperatureSpan = document.querySelector('.temperature span');
+
 window.addEventListener('load', ()=> {
-    let temperatureDescription = document.querySelector('.temperature-description');
-    let temperatureDegree = document.querySelector('.temperature-degree');
-    let locationTimezone = document.querySelector('.location-timezone');
-    let temperatureSection = document.querySelector('.temperature');
-    const temperatureSpan = document.querySelector('.temperature span');
-    
+   
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
             let long = position.coords.longitude;
@@ -23,8 +24,21 @@ window.addEventListener('load', ()=> {
 
                 //Set DOM eleemts from API
 
+                let currentTemperature =  (temp - 273.15).toFixed(2);
                 temperatureDegree.textContent = (temp - 273.15).toFixed(2);
-                temperatureDescription.textContent = "Fairly Warm";
+
+                if(currentTemperature <= 10.00) {
+                    temperatureDescription.textContent = "It's figging Cold";
+                } else if(currentTemperature <= 20.00) {
+                    temperatureDescription.textContent = "It's rather cold. Grab a sweater!"
+                } else if(currentTemperature <= 25.00) {
+                    temperatureDescription.textContent = "Fairly Warm."
+                } else if(currentTemperature <= 30.00) {
+                    temperatureDescription.textContent = "It's really warm!"
+                } else {
+                    temperatureDescription.textContent = "Quite hot. Grab some ice!"
+                }
+                
                 locationTimezone.textContent = data.name;
     
                 //Set icons
