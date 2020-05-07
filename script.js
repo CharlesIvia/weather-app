@@ -4,14 +4,13 @@ window.addEventListener('load', ()=> {
     let locationTimezone = document.querySelector('.location-timezone');
     let temperatureSection = document.querySelector('.temperature');
     const temperatureSpan = document.querySelector('.temperature span');
+    
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
             let long = position.coords.longitude;
             let lat = position.coords.latitude;
 
             let api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=172da5b327659edab3fba95b4a8325b7`;
-
-            // const api = `http://api.openweathermap.org/data/2.5/forecast?id=${lat},${long}&APPID={172da5b327659edab3fba95b4a8325b7}`;
 
             fetch(api)
             .then(response => {
@@ -24,7 +23,7 @@ window.addEventListener('load', ()=> {
 
                 //Set DOM eleemts from API
 
-                temperatureDegree.textContent = ((temp - 273.15) * 9/5 + 32).toFixed(2);
+                temperatureDegree.textContent = (temp - 273.15).toFixed(2);
                 temperatureDescription.textContent = "Fairly Warm";
                 locationTimezone.textContent = data.name;
     
@@ -38,12 +37,12 @@ window.addEventListener('load', ()=> {
                 //Change temperature to Farenheit/Celcious
                 
                 temperatureSection.addEventListener('click', () => {
-                    if(temperatureSpan.textContent === 'F') {
-                        temperatureSpan.textContent = 'C';
-                        temperatureDegree.textContent = (temp - 273.15).toFixed(2);
-                    } else {
+                    if(temperatureSpan.textContent === 'C') {
                         temperatureSpan.textContent = 'F';
                         temperatureDegree.textContent = ((temp - 273.15) * 9/5 + 32).toFixed(2);
+                    } else {
+                        temperatureSpan.textContent = 'C';
+                        temperatureDegree.textContent = (temp - 273.15).toFixed(2);
                     }
                 })
                 
