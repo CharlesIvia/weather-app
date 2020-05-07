@@ -1,0 +1,1 @@
+A simple weather-app using a third-party-api (open weather).
