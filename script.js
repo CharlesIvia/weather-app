@@ -1,10 +1,9 @@
 window.addEventListener('load', ()=> {
-    let long;
-    let lat;
     let temperatureDescription = document.querySelector('.temperature-description');
     let temperatureDegree = document.querySelector('.temperature-degree');
     let locationTimezone = document.querySelector('.location-timezone');
-
+    let temperatureSection = document.querySelector('.temperature');
+    const temperatureSpan = document.querySelector('.temperature span');
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
             let long = position.coords.longitude;
@@ -28,13 +27,26 @@ window.addEventListener('load', ()=> {
                 temperatureDegree.textContent = ((temp - 273.15) * 9/5 + 32).toFixed(2);
                 temperatureDescription.textContent = "Fairly Warm";
                 locationTimezone.textContent = data.name;
-
+    
                 //Set icons
 
                 let iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
                 console.log(iconUrl);
 
                 // setIcons(icon, document.querySelector(".icon"));
+
+                //Change temperature to Farenheit/Celcious
+                
+                temperatureSection.addEventListener('click', () => {
+                    if(temperatureSpan.textContent === 'F') {
+                        temperatureSpan.textContent = 'C';
+                        temperatureDegree.textContent = (temp - 273.15).toFixed(2);
+                    } else {
+                        temperatureSpan.textContent = 'F';
+                        temperatureDegree.textContent = ((temp - 273.15) * 9/5 + 32).toFixed(2);
+                    }
+                })
+                
             })
         });
 
