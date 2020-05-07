@@ -19,15 +19,31 @@ window.addEventListener('load', ()=> {
                 return response.json();
             })
             .then(data => {
-                const { temp, name } = data.main;
+                console.log(data);
+                const { temp } = data.main;
+                let iconCode = data.weather[0].icon;
 
                 //Set DOM eleemts from API
 
                 temperatureDegree.textContent = ((temp - 273.15) * 9/5 + 32).toFixed(2);
                 temperatureDescription.textContent = "Fairly Warm";
                 locationTimezone.textContent = data.name;
+
+                //Set icons
+
+                let iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+                console.log(iconUrl);
+
+                // setIcons(icon, document.querySelector(".icon"));
             })
         });
 
     } else alert('This app requires your location to work!');
+
+    // function setIcons(icon, iconID) {
+    //     const skycons = new Skycons({color:"white"});
+    //     const currentIcon = icon;
+    //     skycons.play();
+    //     return skycons.set(iconID, Skycons[currentIcon]);
+    // }
 });
